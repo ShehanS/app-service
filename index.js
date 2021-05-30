@@ -4,6 +4,7 @@ const authRoute = require('./routes/auth');
 const mongoose = require('mongoose');
 const profileRoute = require('./routes/profileService');
 const registerRouter = require('./routes/registerService');
+const fileUploader = require('./routes/fileUploader');
 const dotenv = require('dotenv');
 const cros = require('cors');
 
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use('/api/user', authRoute);
 app.use('/api', profileRoute);
 app.use('/api', registerRouter);
+app.use('/api', fileUploader);
 
 
 app.listen(process.env.SERVER_PORT, () => console.log('SERVER RUNNING... PORT [' + process.env.SERVER_PORT + ']'));
