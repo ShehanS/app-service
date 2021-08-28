@@ -5,9 +5,7 @@ services:
         environment: 
             - APP_ID=session1
             ports: 
-                - "9000:9000"
-
-    nginx:
+                - "8085:8085
         image: nginx:latest
         ports: 
             - 8080:8080

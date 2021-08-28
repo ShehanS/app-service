@@ -1,6 +1,6 @@
-const Profile = require('../model/profile');
-const ProfileLike = require('../model/like');
-const Image = require('../model/image');
+const Profile = require('../schemas/profile');
+const ProfileLike = require('../schemas/like');
+const Image = require('../schemas/image');
 const router = require('express').Router();
 const fs = require('fs');
 

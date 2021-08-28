@@ -1,7 +1,8 @@
-const verifyToken = require('./verifyToken');
+const verifySession = require('./verifySession');
 const router = require('express').Router();
 
-router.get('/register', verifyToken,(req, res) =>{
-    res.send("hello")
+router.get('/update', verifySession,(req, res) =>{
+   const userid = req.query.userid;
+    res.redirect(`${process.env.WEB_APPLICATION_SERVER}/update-profile?userid=${userid}`);
 });
 module.exports = router;

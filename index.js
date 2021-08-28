@@ -1,13 +1,11 @@
 const express = require('express');
 const app = express();
-const authRoute = require('./routes/auth');
+const appUser = require('./routes/user');
 const mongoose = require('mongoose');
 const profileRoute = require('./routes/profileService');
 const registerRouter = require('./routes/registerService');
 const fileUploader = require('./routes/fileUploader');
 const dotenv = require('dotenv');
-const cros = require('cors');
-
 
 dotenv.config();
 mongoose.set('useNewUrlParser', true);
@@ -20,11 +18,24 @@ mongoose.connect(process.env.DB_CONNECT)
     .then(() => console.log('DATABASE... CONNECTED'))
     .catch(err => console.error('DATABASE... COULD NOT CONNECTED', err))
 
-app.use(cros());
+app.use((req, res, next) =>{
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    if(req.method==="OPTIONS"){
+        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+        return res.status(200).json({});
+
+    }
+    next();
+});
+app.use(express.json({limit: '50mb'}));
 app.use(express.json());
-app.use('/api/user', authRoute);
+app.use('/api/user', appUser);
 app.use('/api', profileRoute);
-app.use('/api', registerRouter);
+app.use('/api/user', registerRouter);
 app.use('/api', fileUploader);
 
 
